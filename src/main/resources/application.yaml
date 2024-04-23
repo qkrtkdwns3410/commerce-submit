@@ -4,5 +4,8 @@ spring:
     open-in-view: false
   application:
     name: commerce-submit
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 server:
   port: 8080

@@ -1,8 +1,13 @@
 package org.commerce.commercesubmit.member.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.commerce.commercesubmit.common.response.ApiResponse;
+import org.commerce.commercesubmit.common.response.ApiHttpResponse;
 import org.commerce.commercesubmit.member.domain.dto.request.MemberSignUpRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.request.MemberUpdateRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberInfoResponseDTO;
@@ -27,6 +32,7 @@ import javax.validation.Valid;
  * -----------------------------------------------------------
  * 24. 4. 23.        ipeac       최초 생성
  */
+@Api(tags = "회원 API")
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -35,30 +41,45 @@ public class MemberApiController {
     private final MemberSignInService memberSignInService;
     private final MemberInfoService memberInfoService;
     
+    @ApiOperation(value = "회원 가입", notes = "회원 가입 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "회원 가입 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청")
+    })
     @PostMapping("/join")
-    public ApiResponse<MemberJoinResponseDTO> join(@Valid @RequestBody MemberSignUpRequestDTO memberSignUpRequestDTO) {
+    public ApiHttpResponse<MemberJoinResponseDTO> join(@ApiParam(value = "회원 가입 정보", required = true) @Valid @RequestBody MemberSignUpRequestDTO memberSignUpRequestDTO) {
         log.info("member.join request -- request memberId: {} ", memberSignUpRequestDTO.getMemberId());
         
         MemberJoinResponseDTO joined = memberSignInService.join(memberSignUpRequestDTO);
         
-        return ApiResponse.success(HttpStatus.CREATED, joined);
+        return ApiHttpResponse.success(HttpStatus.CREATED, joined);
     }
     
+    @ApiOperation(value = "회원 목록 조회", notes = "회원 목록 조회 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "회원 목록 조회 성공"),
+    })
     @GetMapping("/list")
-    public ApiResponse<Page<MemberInfoResponseDTO>> list(Pageable pageable) {
+    public ApiHttpResponse<Page<MemberInfoResponseDTO>> list(Pageable pageable) {
         log.info("member.list request pageSize : {} , pageNumber : {}", pageable.getPageNumber(), pageable.getPageNumber());
         
         Page<MemberInfoResponseDTO> foundMembers = memberInfoService.searchmembersByPaging(pageable);
         
-        return ApiResponse.success(HttpStatus.OK, foundMembers);
+        return ApiHttpResponse.success(HttpStatus.OK, foundMembers);
     }
     
+    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "회원 정보 수정 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @ApiResponse(responseCode = "404", description = "해당하는 회원 정보 없음")
+    })
     @PutMapping("/{memberId}")
-    public ApiResponse<MemberInfoResponseDTO> update(@PathVariable String memberId, @Valid @RequestBody MemberUpdateRequestDTO updateRequestDTO) {
+    public ApiHttpResponse<MemberInfoResponseDTO> update(@ApiParam(value = "회원ID", required = true, example = "qkrtkdwns3410") @PathVariable String memberId, @ApiParam(value = "회원 정보 수정 데이터", required = true) @Valid @RequestBody MemberUpdateRequestDTO updateRequestDTO) {
         log.info("member.update request -- request memberId: {} ", memberId);
         
         MemberInfoResponseDTO updated = memberInfoService.update(memberId, updateRequestDTO);
         
-        return ApiResponse.success(HttpStatus.OK, updated);
+        return ApiHttpResponse.success(HttpStatus.OK, updated);
     }
 }
