@@ -1,7 +1,7 @@
 package org.commerce.commercesubmit.member.domain.dto.request;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
+import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +19,9 @@ import javax.validation.constraints.Size;
  * -----------------------------------------------------------
  * 24. 4. 23.        ipeac       최초 생성
  */
-@Value
+@Setter
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberUpdateRequestDTO {
     
     @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
@@ -44,5 +46,14 @@ public class MemberUpdateRequestDTO {
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+    
+    public MemberEntity toEntity() {
+        return MemberEntity.builder()
+                .password(password)
+                .nickname(nickname)
+                .phoneNumber(phoneNumber)
+                .email(email)
+                .build();
     }
 }

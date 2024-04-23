@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.commerce.commercesubmit.common.exception.ErrorCode;
 import org.commerce.commercesubmit.common.exception.sub_exceptions.data_exceptions.BadRequestException;
 import org.commerce.commercesubmit.member.repository.MemberEntityRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,5 +32,11 @@ public class MemberSignInHelperService {
             
             throw new BadRequestException(ErrorCode.ALREADY_EXIST_MEMBER_ID);
         }
+    }
+    
+    public static String encodePassword(PasswordEncoder passwordEncoder, String oldPassword) {
+        log.info("join request -- encode password");
+        
+        return passwordEncoder.encode(oldPassword);
     }
 }
