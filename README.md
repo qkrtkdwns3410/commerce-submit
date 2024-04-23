@@ -1,5 +1,13 @@
 # commerce-submit
 
+## 프로젝트 기술 스택
+
+1. Java 8
+2. Spring Boot 2.7.18
+3. Gradle 8.6
+4. Spring Data JPA
+5. H2 2.1.214 (lastest) (local & test)
+
 ## 스웨거 접속 방법
 
 - http://localhost:8080/swagger-ui/index.html
