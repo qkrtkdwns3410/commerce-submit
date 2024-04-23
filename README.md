@@ -27,5 +27,5 @@ git clone  "https://github.com/qkrtkdwns3410/commerce-submit.git"
 ## .http client 사용법
 
 1. 프로젝트 루트에 존재하는 api-request-test.http 파일을 엽니다.
-2. http-client.env.json 을 적용해야하기에, intellij 에서 local 환경으로 설정해줍니다.
-3. 원하는 api를 선택하고, Intellij에서 해당 api를 실행합니다.
+2. http-client.env.json 을 적용해야하기에, intellij 에서 local 환경~~으로 설정해줍니다.
+3. 원하는 api를 선택하고, Intellij에서 해당 api를 실행합니다.~~
