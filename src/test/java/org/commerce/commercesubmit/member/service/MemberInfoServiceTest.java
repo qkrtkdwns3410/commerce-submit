@@ -62,7 +62,7 @@ class MemberInfoServiceTest {
     
     @Test
     @DisplayName("멤버 조회 테스트 - 멤버 페이지네이션 테스트")
-    void test1() {
+    void When_SearchMembersByPaging_Expect_PageOfMembers() {
         // given
         for (int i = 0; i < PAGE_SIZE; i++) {
             //bulk insert 는 수행되지 않지만 성능에 영향이 거의 없기에 수행
@@ -98,7 +98,7 @@ class MemberInfoServiceTest {
     
     @Test
     @DisplayName("아무 회원도 없는 경우 - 빈 페이지 반환")
-    void test2() {
+    void When_SearchMembersByPaging_Expect_EmptyPage() {
         // given
         PageRequest request = PageRequest.of(0, PAGE_SIZE / 2, Sort.by(Sort.Order.desc("createdDate")));
         
