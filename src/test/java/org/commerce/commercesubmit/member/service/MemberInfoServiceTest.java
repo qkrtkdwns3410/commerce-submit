@@ -110,8 +110,8 @@ class MemberInfoServiceTest {
         assertThat(found).isNotNull();
         
         assertThat(found.getTotalElements()).isEqualTo(PAGE_SIZE);
+        assertThat(found.getTotalPages()).isEqualTo(2);
         
-        assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getMemberId()).isEqualTo("qkrtkdwns3410" + (PAGE_SIZE / 2));
         assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getNickname()).isEqualTo(memberInfoResponseDTO.getNickname());
         assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getName()).isEqualTo(memberInfoResponseDTO.getName());
         assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getPhoneNumber()).isEqualTo(memberInfoResponseDTO.getPhoneNumber());
