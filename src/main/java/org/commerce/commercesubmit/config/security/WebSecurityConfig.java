@@ -30,9 +30,10 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .antMatchers("/api/user/**").permitAll() // 인증이 필요 없는 엔드포인트 설정
+                                .antMatchers("/h2-console/**").permitAll() // 인증이 필요 없는 엔드포인트 설정
                                 .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )
-                .httpBasic(); // 기본 인증 사용
+                .headers().frameOptions().disable();
         return http.build();
     }
     
