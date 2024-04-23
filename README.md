@@ -10,6 +10,7 @@
 
 ## H2 인메모리 db 콘솔에서 확인하는 방법
 - ![img.png](img.png) 
+- 어플리케이션 수행 후 콘솔에 노출되는 값을 URL 에 입력해야합니다.
 - http://localhost:8080/h2-console 접속
 - JDBC URL : jdbc:h2:mem:testdb:<고유값> url 입력
 - User Name : sa
