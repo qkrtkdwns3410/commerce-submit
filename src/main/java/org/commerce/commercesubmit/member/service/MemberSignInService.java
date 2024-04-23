@@ -2,7 +2,7 @@ package org.commerce.commercesubmit.member.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.commerce.commercesubmit.member.domain.dto.request.SignUpRequestDTO;
+import org.commerce.commercesubmit.member.domain.dto.request.MemberSignUpRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberJoinResponseDTO;
 import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 import org.commerce.commercesubmit.member.repository.MemberEntityRepository;
@@ -31,14 +31,15 @@ public class MemberSignInService {
     private final MemberEntityRepository memberEntityRepository;
     
     @Transactional(readOnly = false)
-    public MemberJoinResponseDTO join(@Valid SignUpRequestDTO signUpRequestDTO) {
-        log.info("join request -- request memberId: {} ", signUpRequestDTO.getMemberId());
+    public MemberJoinResponseDTO join(@Valid MemberSignUpRequestDTO memberSignUpRequestDTO) {
+        log.info("join request -- request memberId: {} ", memberSignUpRequestDTO.getMemberId());
         
         //exist 성능 관련 문서 - https://jojoldu.tistory.com/516
-        MemberSignInHelperService.checkAlreadyExistMemberId(memberEntityRepository, signUpRequestDTO.getMemberId());
+        MemberSignInHelperService.checkAlreadyExistMemberId(memberEntityRepository, memberSignUpRequestDTO.getMemberId());
         
-        MemberEntity saved = memberEntityRepository.save(signUpRequestDTO.toEntity());
+        MemberEntity saved = memberEntityRepository.save(memberSignUpRequestDTO.toEntity());
         
         return saved.toMemberJoinResponseDTO();
     }
+
 }

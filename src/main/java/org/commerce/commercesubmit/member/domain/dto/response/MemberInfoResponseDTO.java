@@ -2,7 +2,6 @@ package org.commerce.commercesubmit.member.domain.dto.response;
 
 import lombok.Builder;
 import lombok.Value;
-import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 
 import java.time.LocalDateTime;
 
@@ -30,16 +29,5 @@ public class MemberInfoResponseDTO {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
-    }
-    
-    public MemberEntity toEntity() {
-        return MemberEntity.builder()
-                .id(id)
-                .memberId(memberId)
-                .nickname(nickname)
-                .name(name)
-                .phoneNumber(phoneNumber)
-                .email(email)
-                .build();
     }
 }

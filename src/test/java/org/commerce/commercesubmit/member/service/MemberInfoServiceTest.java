@@ -1,6 +1,9 @@
 package org.commerce.commercesubmit.member.service;
 
 import org.commerce.commercesubmit.common.annotation.CustomedTestRunner;
+import org.commerce.commercesubmit.common.exception.ErrorCode;
+import org.commerce.commercesubmit.common.exception.sub_exceptions.data_exceptions.NotFoundException;
+import org.commerce.commercesubmit.member.domain.dto.request.MemberUpdateRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberInfoResponseDTO;
 import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 import org.commerce.commercesubmit.member.persistence.MemberPersistence;
@@ -14,7 +17,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * packageName    : org.commerce.commercesubmit.member.service
@@ -44,10 +50,14 @@ class MemberInfoServiceTest {
     
     private MemberInfoResponseDTO memberInfoResponseDTO;
     
+    private MemberUpdateRequestDTO updateRequestDTO;
+    
+    private LocalDateTime now = LocalDateTime.now();
+    
     @BeforeEach
     void setUp() {
         memberPersistence = new MemberPersistence(memberEntityRepository);
-        memberInfoService = new MemberInfoService(memberPersistence);
+        memberInfoService = new MemberInfoService(memberPersistence, memberEntityRepository);
         
         memberInfoResponseDTO = MemberInfoResponseDTO.builder()
                 .memberId("qkrtkdwns3410")
@@ -57,7 +67,12 @@ class MemberInfoServiceTest {
                 .email("qkrtkdwns3410@gmail.com")
                 .build();
         
-        
+        updateRequestDTO = MemberUpdateRequestDTO.builder()
+                .password("TheCommerceTestcode!@#")
+                .nickname("닉네임변경하고싶은 기분")
+                .phoneNumber("010-9876-5432")
+                .email("updated320@gmail.com")
+                .build();
     }
     
     @Test
@@ -109,5 +124,46 @@ class MemberInfoServiceTest {
         assertThat(found).isNotNull();
         
         assertThat(found.getTotalElements()).isEqualTo(0);
+    }
+    
+    @Test
+    @DisplayName("멤버 업데이트 테스트 - 정상 수정 테스트")
+    void When_UpdateMember_Expect_Success() {
+        // given
+        MemberEntity existMember = MemberEntity.builder()
+                .password("ajsdi*(qjlekldjj23LKKk")
+                .memberId("qkrtkdwns3410")
+                .nickname(memberInfoResponseDTO.getNickname())
+                .name(memberInfoResponseDTO.getName())
+                .phoneNumber(memberInfoResponseDTO.getPhoneNumber())
+                .email(memberInfoResponseDTO.getEmail())
+                .createdDate(LocalDateTime.now().minusDays(1))
+                .lastModifiedDate(LocalDateTime.now().minusDays(1))
+                .build();
+        
+        tem.persist(existMember);
+        
+        // when
+        MemberInfoResponseDTO updated = memberInfoService.update(existMember.getMemberId(), updateRequestDTO);
+        
+        // then
+        assertThat(updated).isNotNull();
+        
+        assertThat(updated.getMemberId()).isEqualTo(existMember.getMemberId());
+        assertThat(updated.getNickname()).isEqualTo(updateRequestDTO.getNickname());
+        assertThat(updated.getName()).isEqualTo(existMember.getName());
+        assertThat(updated.getPhoneNumber()).isEqualTo(updateRequestDTO.getPhoneNumber());
+        assertThat(updated.getEmail()).isEqualTo(updateRequestDTO.getEmail());
+        
+        assertThat(updated.getCreatedDate()).isNotNull();
+        assertThat(updated.getLastModifiedDate()).isNotNull().isAfter(now);
+    }
+    
+    @Test
+    @DisplayName("수정할 회원이 없는 경우 NOTFOUNDEXCEPTION")
+    void When_UpdateMember_Expect_NotFoundException() {
+        assertThatThrownBy(() -> memberInfoService.update("qkrtkdwns3410", updateRequestDTO))
+                .isInstanceOf(NotFoundException.class)
+                .hasMessage(ErrorCode.NOT_FOUND_MEMBER.getMessage());
     }
 }
