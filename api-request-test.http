@@ -1,0 +1,14 @@
+// must setting env -> local
+## 회원가입 API
+
+POST {{HOST}}:{{PORT}}/api/user/join
+content-type: application/json
+
+{
+  "memberId": "qkrtkdwns3410",
+  "password": "23ia*923oSDHnK#",
+  "nickname": "김밥천국지배자",
+  "phoneNumber": "010-1234-5678",
+  "name": "박상준",
+  "email": "qkrtkdwns@naver.com"
+}
