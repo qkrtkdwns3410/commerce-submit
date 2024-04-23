@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * packageName    : org.commerce.commercesubmit.member.domain.dto.request
@@ -21,7 +22,7 @@ import javax.validation.constraints.Size;
  * 24. 4. 23.        ipeac       최초 생성
  */
 @Value
-public class SignUpRequestDTO {
+public class SignUpRequestDTO implements Serializable {
     @NotBlank(message = "회원 ID는 필수 입력 값입니다.")
     @Size(min = 4, message = "회원 ID는 최소 4자 이상이어야 합니다.")
     String memberId;

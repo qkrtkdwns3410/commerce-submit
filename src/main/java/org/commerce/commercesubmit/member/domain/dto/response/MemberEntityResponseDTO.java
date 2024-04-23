@@ -4,13 +4,14 @@ import lombok.Builder;
 import lombok.Value;
 import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * DTO for {@link MemberEntity}
  */
 @Value
-public class MemberEntityResponseDTO {
+public class MemberEntityResponseDTO implements Serializable {
     Long id;
     String memberId;
     LocalDateTime createdDate;

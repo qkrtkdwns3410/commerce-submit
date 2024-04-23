@@ -15,10 +15,10 @@ import org.commerce.commercesubmit.common.exception.ErrorCode;
  * 2024-03-27        ipeac       최초 생성
  */
 @Getter
-public class CustomeRuntimeException extends RuntimeException {
+public class CustomRuntimeException extends RuntimeException {
     private final ErrorCode errorCode;
     
-    public CustomeRuntimeException(ErrorCode errorCode) {
+    public CustomRuntimeException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }

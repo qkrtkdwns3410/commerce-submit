@@ -1,7 +1,8 @@
 package org.commerce.commercesubmit.config.advice;
 
-import org.commerce.commercesubmit.common.exception.base_exceptions.CustomeRuntimeException;
+import org.commerce.commercesubmit.common.exception.sub_exceptions.data_exceptions.BadRequestException;
 import org.commerce.commercesubmit.common.response.ApiResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,8 +20,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomAdvice {
     
-    @ExceptionHandler(CustomeRuntimeException.class)
-    public final ApiResponse<Object> notFoundExceptionHandler(CustomeRuntimeException e) {
-        return ApiResponse.fail(e.getErrorCode());
+    @ExceptionHandler(BadRequestException.class)
+    public final ResponseEntity<ApiResponse<Object>> badRequestHandler(BadRequestException e) {
+        ApiResponse<Object> fail = ApiResponse.fail(e.getErrorCode());
+        return ResponseEntity.status(fail.getStatus()).body(fail);
     }
 }
