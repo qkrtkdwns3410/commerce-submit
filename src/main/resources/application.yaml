@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    # https://velog.io/@qkrtkdwns3410/Spring-open-in-view-%EC%86%8D%EC%84%B1 ->  the reason why open-in-view is false
+    open-in-view: false
+  application:
+    name: commerce-submit
+server:
+  port: 8080
