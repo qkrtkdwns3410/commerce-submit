@@ -8,6 +8,13 @@
 4. Spring Data JPA
 5. H2 2.1.214 (lastest) (local & test)
 
+## H2 인메모리 db 콘솔에서 확인하는 방법
+- ![img.png](img.png) 
+- http://localhost:8080/h2-console 접속
+- JDBC URL : jdbc:h2:mem:testdb:<고유값> url 입력
+- User Name : sa
+- Password :
+
 ## 스웨거 접속 방법
 
 - http://localhost:8080/swagger-ui/index.html
