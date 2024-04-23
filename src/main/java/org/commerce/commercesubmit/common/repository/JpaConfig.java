@@ -1,4 +1,4 @@
-package org.commerce.commercesubmit.config;
+package org.commerce.commercesubmit.common.repository;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
