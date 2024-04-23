@@ -1,7 +1,6 @@
 package org.commerce.commercesubmit.member.domain.dto.request;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 
 import javax.validation.constraints.Email;
@@ -20,7 +19,9 @@ import javax.validation.constraints.Size;
  * -----------------------------------------------------------
  * 24. 4. 23.        ipeac       최초 생성
  */
-@Value
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberSignUpRequestDTO {
     @NotBlank(message = "회원 ID는 필수 입력 값입니다.")
     @Size(min = 4, message = "회원 ID는 최소 4자 이상이어야 합니다.")

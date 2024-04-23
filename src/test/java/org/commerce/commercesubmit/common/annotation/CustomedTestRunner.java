@@ -27,8 +27,8 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @AutoConfigureTestDatabase(replace = ANY)
-@Import({JpaAuditingConfig.class})
 @DataJpaTest
 @ActiveProfiles("test")
+@Import({JpaAuditingConfig.class})
 public @interface CustomedTestRunner {
 }

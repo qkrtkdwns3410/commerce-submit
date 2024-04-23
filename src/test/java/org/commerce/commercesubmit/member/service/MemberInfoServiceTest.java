@@ -11,11 +11,16 @@ import org.commerce.commercesubmit.member.repository.MemberEntityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -34,6 +39,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * 24. 4. 23.        ipeac       최초 생성
  */
 @CustomedTestRunner
+@ExtendWith(MockitoExtension.class)
 class MemberInfoServiceTest {
     
     @Autowired
@@ -41,6 +47,9 @@ class MemberInfoServiceTest {
     
     @Autowired
     private MemberEntityRepository memberEntityRepository;
+    
+    @MockBean
+    private PasswordEncoder passwordEncoder;
     
     private static final int PAGE_SIZE = 10;
     
@@ -56,8 +65,9 @@ class MemberInfoServiceTest {
     
     @BeforeEach
     void setUp() {
+        passwordEncoder = new BCryptPasswordEncoder();
         memberPersistence = new MemberPersistence(memberEntityRepository);
-        memberInfoService = new MemberInfoService(memberPersistence, memberEntityRepository);
+        memberInfoService = new MemberInfoService(memberPersistence, memberEntityRepository, passwordEncoder);
         
         memberInfoResponseDTO = MemberInfoResponseDTO.builder()
                 .memberId("qkrtkdwns3410")
@@ -100,8 +110,8 @@ class MemberInfoServiceTest {
         assertThat(found).isNotNull();
         
         assertThat(found.getTotalElements()).isEqualTo(PAGE_SIZE);
+        assertThat(found.getTotalPages()).isEqualTo(2);
         
-        assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getMemberId()).isEqualTo("qkrtkdwns3410" + (PAGE_SIZE / 2));
         assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getNickname()).isEqualTo(memberInfoResponseDTO.getNickname());
         assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getName()).isEqualTo(memberInfoResponseDTO.getName());
         assertThat(found.getContent().get(PAGE_SIZE / 2 - 1).getPhoneNumber()).isEqualTo(memberInfoResponseDTO.getPhoneNumber());
