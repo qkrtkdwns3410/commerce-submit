@@ -3,7 +3,7 @@ package org.commerce.commercesubmit.member.service;
 import org.commerce.commercesubmit.common.annotation.CustomedTestRunner;
 import org.commerce.commercesubmit.common.exception.ErrorCode;
 import org.commerce.commercesubmit.common.exception.sub_exceptions.data_exceptions.BadRequestException;
-import org.commerce.commercesubmit.member.domain.dto.request.SignUpRequestDTO;
+import org.commerce.commercesubmit.member.domain.dto.request.MemberSignUpRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberJoinResponseDTO;
 import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 import org.commerce.commercesubmit.member.repository.MemberEntityRepository;
@@ -38,12 +38,12 @@ class MemberSignInServiceTest {
     
     private MemberSignInService memberSignInService;
     
-    private SignUpRequestDTO correctUserSignUpDTO;
+    private MemberSignUpRequestDTO correctUserSignUpDTO;
     
     @BeforeEach
     void setUp() {
         memberSignInService = new MemberSignInService(memberEntityRepository);
-        correctUserSignUpDTO = SignUpRequestDTO.builder()
+        correctUserSignUpDTO = MemberSignUpRequestDTO.builder()
                 .memberId("qkrtkdwns3410")
                 .password("23ia*923oSDHnK#")
                 .nickname("김밥천국지배자")
@@ -75,7 +75,7 @@ class MemberSignInServiceTest {
         memberSignInService.join(correctUserSignUpDTO);
         
         //when
-        SignUpRequestDTO alreadyExistUserSignUpDTO = correctUserSignUpDTO;
+        MemberSignUpRequestDTO alreadyExistUserSignUpDTO = correctUserSignUpDTO;
         
         //then
         assertThatThrownBy(() -> memberSignInService.join(alreadyExistUserSignUpDTO))
