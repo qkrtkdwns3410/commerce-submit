@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
  * 24. 4. 23.        ipeac       최초 생성
  */
 @Value
-public class SignUpRequestDTO {
+public class MemberSignUpRequestDTO {
     @NotBlank(message = "회원 ID는 필수 입력 값입니다.")
     @Size(min = 4, message = "회원 ID는 최소 4자 이상이어야 합니다.")
     String memberId;
@@ -45,7 +45,7 @@ public class SignUpRequestDTO {
     String email;
     
     @Builder
-    private SignUpRequestDTO(String memberId, String password, String nickname, String name, String phoneNumber, String email) {
+    private MemberSignUpRequestDTO(String memberId, String password, String nickname, String name, String phoneNumber, String email) {
         this.memberId = memberId;
         this.password = password;
         this.nickname = nickname;

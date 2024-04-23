@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.commerce.commercesubmit.common.basetime.BaseEntity;
+import org.commerce.commercesubmit.member.domain.dto.request.MemberUpdateRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberInfoResponseDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberJoinResponseDTO;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * packageName    : org.commerce.commercesubmit.member.domain.entity
@@ -80,5 +82,16 @@ public class MemberEntity extends BaseEntity {
                 .phoneNumber(this.getPhoneNumber())
                 .email(this.getEmail())
                 .build();
+    }
+    
+    public MemberEntity update(MemberUpdateRequestDTO updateRequestDTO) {
+        Objects.requireNonNull(updateRequestDTO, "updateRequestDTO must not be null");
+        
+        this.password = updateRequestDTO.getPassword();
+        this.nickname = updateRequestDTO.getNickname();
+        this.phoneNumber = updateRequestDTO.getPhoneNumber();
+        this.email = updateRequestDTO.getEmail();
+        
+        return this;
     }
 }

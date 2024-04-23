@@ -3,7 +3,8 @@ package org.commerce.commercesubmit.member.api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.commerce.commercesubmit.common.response.ApiResponse;
-import org.commerce.commercesubmit.member.domain.dto.request.SignUpRequestDTO;
+import org.commerce.commercesubmit.member.domain.dto.request.MemberSignUpRequestDTO;
+import org.commerce.commercesubmit.member.domain.dto.request.MemberUpdateRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberInfoResponseDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberJoinResponseDTO;
 import org.commerce.commercesubmit.member.service.MemberInfoService;
@@ -35,10 +36,10 @@ public class MemberApiController {
     private final MemberInfoService memberInfoService;
     
     @PostMapping("/join")
-    public ApiResponse<MemberJoinResponseDTO> join(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
-        log.info("member.join request -- request memberId: {} ", signUpRequestDTO.getMemberId());
+    public ApiResponse<MemberJoinResponseDTO> join(@Valid @RequestBody MemberSignUpRequestDTO memberSignUpRequestDTO) {
+        log.info("member.join request -- request memberId: {} ", memberSignUpRequestDTO.getMemberId());
         
-        MemberJoinResponseDTO joined = memberSignInService.join(signUpRequestDTO);
+        MemberJoinResponseDTO joined = memberSignInService.join(memberSignUpRequestDTO);
         
         return ApiResponse.success(HttpStatus.CREATED, joined);
     }
@@ -50,5 +51,14 @@ public class MemberApiController {
         Page<MemberInfoResponseDTO> foundMembers = memberInfoService.searchmembersByPaging(pageable);
         
         return ApiResponse.success(HttpStatus.OK, foundMembers);
+    }
+    
+    @PutMapping("/{memberId}")
+    public ApiResponse<MemberInfoResponseDTO> update(@PathVariable String memberId, @Valid @RequestBody MemberUpdateRequestDTO updateRequestDTO) {
+        log.info("member.update request -- request memberId: {} ", memberId);
+        
+        MemberInfoResponseDTO updated = memberInfoService.update(memberId, updateRequestDTO);
+        
+        return ApiResponse.success(HttpStatus.OK, updated);
     }
 }
