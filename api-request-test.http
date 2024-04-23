@@ -15,7 +15,6 @@ content-type: application/json
 
 ###
 # 회원 목록 출력 API
-
 GET {{HOST}}:{{PORT}}/api/user/list?page=0&size=10&sort=createdDate,desc
 
 

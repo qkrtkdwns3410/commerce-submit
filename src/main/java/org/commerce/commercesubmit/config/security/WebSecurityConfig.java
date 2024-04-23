@@ -22,6 +22,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+    private static final String[] SwaggerPatterns = {
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/webjars/**",
+    };
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,6 +39,7 @@ public class WebSecurityConfig {
                         authorizeRequests
                                 .antMatchers("/api/user/**").permitAll() // 인증이 필요 없는 엔드포인트 설정
                                 .antMatchers("/h2-console/**").permitAll() // 인증이 필요 없는 엔드포인트 설정
+                                .antMatchers(SwaggerPatterns).permitAll() // 인증이 필요 없는 엔드포인트 설정
                                 .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )
                 .headers().frameOptions().disable();
