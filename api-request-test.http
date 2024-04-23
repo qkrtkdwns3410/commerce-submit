@@ -1,5 +1,5 @@
 // must setting env -> local
-## 회원가입 API
+# 회원가입 API
 
 POST {{HOST}}:{{PORT}}/api/user/join
 content-type: application/json
@@ -11,4 +11,16 @@ content-type: application/json
   "phoneNumber": "010-1234-5678",
   "name": "박상준",
   "email": "qkrtkdwns@naver.com"
+}
+
+###
+# 회원 목록 출력 API
+
+GET {{HOST}}:{{PORT}}/api/user/list
+content-type: application/json
+
+{
+  "page": 1,
+  "size": 10,
+  "sort": "createdDate,desc"
 }

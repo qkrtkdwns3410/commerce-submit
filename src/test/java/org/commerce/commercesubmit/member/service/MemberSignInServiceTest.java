@@ -1,17 +1,16 @@
 package org.commerce.commercesubmit.member.service;
 
+import org.commerce.commercesubmit.common.annotation.CustomedTestRunner;
 import org.commerce.commercesubmit.common.exception.ErrorCode;
 import org.commerce.commercesubmit.common.exception.sub_exceptions.data_exceptions.BadRequestException;
 import org.commerce.commercesubmit.member.domain.dto.request.SignUpRequestDTO;
-import org.commerce.commercesubmit.member.domain.dto.response.MemberEntityResponseDTO;
+import org.commerce.commercesubmit.member.domain.dto.response.MemberJoinResponseDTO;
 import org.commerce.commercesubmit.member.domain.entity.MemberEntity;
 import org.commerce.commercesubmit.member.repository.MemberEntityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,8 +27,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * -----------------------------------------------------------
  * 24. 4. 23.        ipeac       최초 생성
  */
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@CustomedTestRunner
 class MemberSignInServiceTest {
     
     @Autowired
@@ -59,7 +57,7 @@ class MemberSignInServiceTest {
     @DisplayName("회원가입이 정상적으로 이루어지는 경우 정보 확인")
     void When_JoinMember_Expect_MemberInfo() {
         //when
-        MemberEntityResponseDTO joined = memberSignInService.join(correctUserSignUpDTO);
+        MemberJoinResponseDTO joined = memberSignInService.join(correctUserSignUpDTO);
         
         //then
         MemberEntity found = tem.find(MemberEntity.class, joined.getId());

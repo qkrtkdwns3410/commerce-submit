@@ -4,8 +4,6 @@ import lombok.Getter;
 import org.commerce.commercesubmit.common.exception.ErrorCode;
 import org.springframework.http.HttpStatus;
 
-import java.io.Serializable;
-
 /**
  * packageName    : org.commerce.commercesubmit.common.exception
  * fileName       : ApiResponse
@@ -18,7 +16,7 @@ import java.io.Serializable;
  * 24. 4. 12.        ipeac       최초 생성
  */
 @Getter
-public class ApiResponse<T> implements Serializable {
+public class ApiResponse<T> {
     private final HttpStatus status;
     private final T data;
     private final String message;

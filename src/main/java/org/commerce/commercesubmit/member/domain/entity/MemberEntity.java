@@ -1,11 +1,12 @@
 package org.commerce.commercesubmit.member.domain.entity;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.commerce.commercesubmit.common.basetime.BaseEntity;
-import org.commerce.commercesubmit.member.domain.dto.response.MemberEntityResponseDTO;
+import org.commerce.commercesubmit.member.domain.dto.response.MemberInfoResponseDTO;
+import org.commerce.commercesubmit.member.domain.dto.response.MemberJoinResponseDTO;
 
 import javax.persistence.*;
 
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "MEMBER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SuperBuilder
 @Getter
 public class MemberEntity extends BaseEntity {
     //MySQL 의 경우에는 IDENTITY 전략을 취하는 경우 bulk insert 가 되지 않는 다는 문제점은 인지하고 개발하였다는 점 고려해주세요!😢
@@ -48,7 +50,6 @@ public class MemberEntity extends BaseEntity {
     @Column(name = "EMAIL", nullable = false)
     private String email;
     
-    @Builder
     private MemberEntity(Long id, String memberId, String password, String nickname, String name, String phoneNumber, String email) {
         this.id = id;
         this.memberId = memberId;
@@ -59,12 +60,25 @@ public class MemberEntity extends BaseEntity {
         this.email = email;
     }
     
-    public MemberEntityResponseDTO toResponseDTO() {
-        return MemberEntityResponseDTO.builder()
+    public MemberJoinResponseDTO toMemberJoinResponseDTO() {
+        return MemberJoinResponseDTO.builder()
                 .createdDate(this.getCreatedDate())
                 .lastModifiedDate(this.getLastModifiedDate())
                 .id(this.getId())
                 .memberId(this.getMemberId())
+                .build();
+    }
+    
+    public MemberInfoResponseDTO toMemberInfoResponseDTO() {
+        return MemberInfoResponseDTO.builder()
+                .createdDate(this.getCreatedDate())
+                .lastModifiedDate(this.getLastModifiedDate())
+                .id(this.getId())
+                .memberId(this.getMemberId())
+                .nickname(this.getNickname())
+                .name(this.getName())
+                .phoneNumber(this.getPhoneNumber())
+                .email(this.getEmail())
                 .build();
     }
 }
