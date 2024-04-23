@@ -33,7 +33,7 @@ public class MemberApiController {
     private final MemberSignInService memberSignInService;
     
     @PostMapping("/join")
-    public ApiResponse<Object> join(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
+    public ApiResponse<MemberEntityResponseDTO> join(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
         log.info("join request -- request memberId: {} ", signUpRequestDTO.getMemberId());
         
         MemberEntityResponseDTO joined = memberSignInService.join(signUpRequestDTO);
