@@ -37,3 +37,8 @@ git clone  "https://github.com/qkrtkdwns3410/commerce-submit.git"
 1. 프로젝트 루트에 존재하는 api-request-test.http 파일을 엽니다.
 2. http-client.env.json 을 적용해야하기에, intellij 에서 local 환경~~으로 설정해줍니다.
 3. 원하는 api를 선택하고, Intellij에서 해당 api를 실행합니다.~~
+
+## 패치 내역
+1. 2024.04.25
+> - 프로젝트 회원가입 API 응답 코드가 200으로 내려오고 있던 문제 201로 수정
+> - 회원가입에 대한 통합 테스트 코드 작성 완료 ( 코드 작성 중에 발견 ;;)
