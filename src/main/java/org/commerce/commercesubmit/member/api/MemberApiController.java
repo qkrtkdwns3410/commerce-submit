@@ -40,6 +40,7 @@ public class MemberApiController {
     private final MemberInfoService memberInfoService;
     
     @ApiOperation(value = "회원 가입", notes = "회원 가입 API")
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/join")
     public ApiHttpResponse<MemberJoinResponseDTO> join(@ApiParam(value = "회원 가입 정보", required = true) @Valid @RequestBody MemberSignUpRequestDTO memberSignUpRequestDTO) {
         log.info("member.join request -- request memberId: {} ", memberSignUpRequestDTO.getMemberId());
