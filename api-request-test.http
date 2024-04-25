@@ -14,11 +14,6 @@ content-type: application/json
 }
 
 ###
-# 회원 목록 출력 API
-GET {{HOST}}:{{PORT}}/api/user/list?page=0&size=10&sort=createdDate,desc
-
-
-###
 # 회원 업데이트 API
 PUT {{HOST}}:{{PORT}}/api/user/{{MEMBER_ID}}
 content-type: application/json
@@ -29,3 +24,7 @@ content-type: application/json
   "phoneNumber": "010-9999-9999",
   "email": "qkrtkdwnsupdated@naver.com"
 }
+
+###
+# 회원 목록 출력 API
+GET {{HOST}}:{{PORT}}/api/user/list?page=0&size=10&sort=createdDate,desc
