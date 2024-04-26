@@ -48,3 +48,5 @@ git clone  "https://github.com/qkrtkdwns3410/commerce-submit.git"
 
 2. 2024.04.26
    - 회원 수정에 대한 통합 테스트 코드 작성 완료
+   - 테스크 클래스에 @DisplayName 추가
+   - 회원 엔티티 수정에 대한 테스크 코드 추가
