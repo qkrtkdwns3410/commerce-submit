@@ -38,6 +38,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * -----------------------------------------------------------
  * 24. 4. 23.        ipeac       최초 생성
  */
+@DisplayName("회원 정보 서비스 테스트")
 @CustomedTestRunner
 @ExtendWith(MockitoExtension.class)
 class MemberInfoServiceTest {

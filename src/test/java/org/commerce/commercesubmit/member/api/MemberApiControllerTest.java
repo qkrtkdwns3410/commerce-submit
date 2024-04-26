@@ -34,6 +34,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DisplayName("회원 API 컨트롤러 테스트")
 @WebMvcTest(MemberApiController.class)
 public class MemberApiControllerTest {
     

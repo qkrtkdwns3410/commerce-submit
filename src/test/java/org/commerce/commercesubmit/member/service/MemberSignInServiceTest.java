@@ -34,6 +34,7 @@ import static org.mockito.Mockito.mockStatic;
  * -----------------------------------------------------------
  * 24. 4. 23.        ipeac       최초 생성
  */
+@DisplayName("회원 가입 서비스 테스트")
 @CustomedTestRunner
 @ExtendWith(MockitoExtension.class)
 class MemberSignInServiceTest {
