@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.commerce.commercesubmit.common.exception.ErrorCode;
 import org.commerce.commercesubmit.common.exception.sub_exceptions.data_exceptions.BadRequestException;
 import org.commerce.commercesubmit.member.domain.dto.request.MemberSignUpRequestDTO;
+import org.commerce.commercesubmit.member.domain.dto.request.MemberUpdateRequestDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberInfoResponseDTO;
 import org.commerce.commercesubmit.member.domain.dto.response.MemberJoinResponseDTO;
 import org.commerce.commercesubmit.member.service.MemberInfoService;
@@ -143,5 +144,49 @@ public class MemberApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.content").isArray())
                 .andExpect(jsonPath("$.data.content").isEmpty());
+    }
+    
+    @Test
+    @WithMockUser(username = "qkrtkdwns3410", roles = "USER")
+    @DisplayName("회원정보 수정 - 정상 수정")
+    void When_RequestUpdate_Then_ReturnOk() throws Exception {
+        // given
+        MemberInfoResponseDTO updatedMemberInfo = MemberInfoResponseDTO.builder()
+                .memberId("qkrtkdwns3410")
+                .nickname("수정된 김밥천국")
+                .name("뉴박상준")
+                .phoneNumber("010-1234-9999")
+                .email("qkrtkdwns3410IsChanged@naver.com")
+                .build();
+        
+        given(memberInfoService.update(any(String.class), any(MemberUpdateRequestDTO.class))).willReturn(updatedMemberInfo);
+        
+        // when & then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/user/{memberId}", "qkrtkdwns3410")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())
+                        .content(objectMapper.writeValueAsString(memberSignUpRequestDTO)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.memberId").value("qkrtkdwns3410"))
+                .andExpect(jsonPath("$.data.nickname").value("수정된 김밥천국"))
+                .andExpect(jsonPath("$.data.name").value("뉴박상준"))
+                .andExpect(jsonPath("$.data.phoneNumber").value("010-1234-9999"))
+                .andExpect(jsonPath("$.data.email").value("qkrtkdwns3410IsChanged@naver.com"));
+    }
+    
+    @Test
+    @WithMockUser(username = "qkrtkdwns3410", roles = "USER")
+    @DisplayName("회원정보 수정 - 존재하지 않는 회원의 정보 수정 요청")
+    void When_RequestUpdate_Then_ReturnBadRequest() throws Exception {
+        // given
+        given(memberInfoService.update(any(String.class), any(MemberUpdateRequestDTO.class)))
+                .willThrow(new BadRequestException(ErrorCode.NOT_FOUND_MEMBER));
+        
+        // when & then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/user/{memberId}", "qkrtkdwns3410")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())
+                        .content(objectMapper.writeValueAsString(memberSignUpRequestDTO)))
+                .andExpect(status().isNotFound());
     }
 }
