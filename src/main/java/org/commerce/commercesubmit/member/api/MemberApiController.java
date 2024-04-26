@@ -55,7 +55,7 @@ public class MemberApiController {
     public ApiHttpResponse<Page<MemberInfoResponseDTO>> list(Pageable pageable) {
         log.info("member.list request pageSize : {} , pageNumber : {}", pageable.getPageNumber(), pageable.getPageNumber());
         
-        Page<MemberInfoResponseDTO> foundMembers = memberInfoService.searchmembersByPaging(pageable);
+        Page<MemberInfoResponseDTO> foundMembers = memberInfoService.searchMembersByPaging(pageable);
         
         return ApiHttpResponse.success(HttpStatus.OK, foundMembers);
     }

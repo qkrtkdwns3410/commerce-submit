@@ -36,7 +36,7 @@ public class MemberInfoService {
     private final MemberEntityRepository memberEntityRepository;
     private final PasswordEncoder passwordEncoder;
     
-    public Page<MemberInfoResponseDTO> searchmembersByPaging(Pageable pageable) {
+    public Page<MemberInfoResponseDTO> searchMembersByPaging(Pageable pageable) {
         log.info("member.list request pageSize : {} , pageNumber : {}", pageable.getPageSize(), pageable.getPageNumber());
         
         return memberPersistence.searchmembersByPaging(pageable);

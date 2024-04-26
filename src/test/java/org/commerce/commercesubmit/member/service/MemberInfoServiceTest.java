@@ -105,7 +105,7 @@ class MemberInfoServiceTest {
         PageRequest request = PageRequest.of(0, PAGE_SIZE / 2, Sort.by(Sort.Order.desc("createdDate")));
         
         // when
-        Page<MemberInfoResponseDTO> found = memberInfoService.searchmembersByPaging(request);
+        Page<MemberInfoResponseDTO> found = memberInfoService.searchMembersByPaging(request);
         
         // then
         assertThat(found).isNotNull();
@@ -129,7 +129,7 @@ class MemberInfoServiceTest {
         PageRequest request = PageRequest.of(0, PAGE_SIZE / 2, Sort.by(Sort.Order.desc("createdDate")));
         
         // when
-        Page<MemberInfoResponseDTO> found = memberInfoService.searchmembersByPaging(request);
+        Page<MemberInfoResponseDTO> found = memberInfoService.searchMembersByPaging(request);
         
         // then
         assertThat(found).isNotNull();

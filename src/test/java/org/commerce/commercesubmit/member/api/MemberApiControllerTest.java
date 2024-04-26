@@ -115,7 +115,7 @@ public class MemberApiControllerTest {
         
         Page<MemberInfoResponseDTO> page = new PageImpl<>(members, PageRequest.of(0, 10), members.size());
         
-        given(memberInfoService.searchmembersByPaging(any(Pageable.class))).willReturn(page);
+        given(memberInfoService.searchMembersByPaging(any(Pageable.class))).willReturn(page);
         
         // when & then
         mockMvc.perform(MockMvcRequestBuilders.get("/api/user/list")
@@ -136,7 +136,7 @@ public class MemberApiControllerTest {
         
         Page<MemberInfoResponseDTO> page = new PageImpl<>(members, PageRequest.of(0, 10), 0);
         
-        given(memberInfoService.searchmembersByPaging(any(Pageable.class))).willReturn(page);
+        given(memberInfoService.searchMembersByPaging(any(Pageable.class))).willReturn(page);
         
         // when & then
         mockMvc.perform(MockMvcRequestBuilders.get("/api/user/list")
