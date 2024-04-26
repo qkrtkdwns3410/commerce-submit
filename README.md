@@ -1,5 +1,9 @@
 # commerce-submit
 
+## workflow 현황 및 코드 커버리지 체크
+[![Java CI with Gradle](https://github.com/qkrtkdwns3410/commerce-submit/actions/workflows/workflow-dev.yml/badge.svg?branch=dev)](https://github.com/qkrtkdwns3410/commerce-submit/actions/workflows/workflow-dev.yml)
+[![codecov](https://codecov.io/gh/qkrtkdwns3410/commerce-submit/branch/dev/graph/badge.svg?token=Z917TF2AO5)](https://codecov.io/gh/qkrtkdwns3410/commerce-submit)
+
 ## 프로젝트 기술 스택
 
 1. Java 8
@@ -47,6 +51,6 @@ git clone  "https://github.com/qkrtkdwns3410/commerce-submit.git"
     - 회원목록에 대한 통합 테스트 코드 작성 완료
 
 2. 2024.04.26
-   - 회원 수정에 대한 통합 테스트 코드 작성 완료
-   - 테스크 클래스에 @DisplayName 추가
-   - 회원 엔티티 수정에 대한 테스크 코드 추가
+    - 회원 수정에 대한 통합 테스트 코드 작성 완료
+    - 테스크 클래스에 @DisplayName 추가
+    - 회원 엔티티 수정에 대한 테스크 코드 추가
